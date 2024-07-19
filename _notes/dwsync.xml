@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="index.html" server="ftp.nicksalve.com/www/" local="133461186267105065" remote="133461186000000000" Dst="1" />
-<file name="requests.php" server="ftp.nicksalve.com/www/" local="133460282079672050" remote="133460282400000000" Dst="1" />
-<file name="jquery-3.7.1.min.js" server="ftp.nicksalve.com/www/" local="133460271793817246" remote="133460271600000000" Dst="1" />
+<file name="index.html" server="ftp.nicksalve.com/www/" local="133658832833070720" remote="133658832600000000" Dst="2" />
+<file name="requests.php" server="ftp.nicksalve.com/www/" local="133658728337392254" remote="133658728800000000" Dst="2" />
+<file name="jquery-3.7.1.min.js" server="ftp.nicksalve.com/www/" local="133465228450101291" remote="133658722800000000" Dst="2" />
+<file name=".gitIgnore" server="ftp.nicksalve.com/www/" local="133465229605141993" remote="133658722800000000" Dst="2" />
+<file name=".gitattributes" server="ftp.nicksalve.com/www/" local="133465228635734353" remote="133658722800000000" Dst="2" />
 </dwsync>

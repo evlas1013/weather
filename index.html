@@ -15,15 +15,62 @@ function updateWeather(inQ){
 		}
 		
 		var temp = parseFloat(myJson.current.temp_f).toPrecision(1);
+		var feelsLike = parseFloat(myJson.current.feelslike_f).toPrecision(1);
 		var loc = myJson.location.name + ", " + myJson.location.region;
-		temp -= 72;
+		temp -= 70;
+		feelsLike -= 70;
 		document.getElementById("temp").innerHTML = temp + "&deg;S";
+		document.getElementById("feels_like").innerHTML = "Feels Like: " + feelsLike + "&deg;S";
 		document.getElementById("loc").innerHTML = loc;
 		var iconUrl = myJson.current.condition.icon;
 		iconUrl = iconUrl.substring(2);	
 		iconUrl = "https://"+iconUrl;
 		document.getElementById("weather_icon").src = iconUrl;
 		document.getElementById("updated_time").innerHTML = "Updated: " + myJson.current.last_updated;
+		var recommendation = "Here's what we suggest...";
+		switch (feelsLike) {		
+				
+			case -50:
+				recommendation = "Holy crap, it's cold out! Stay inside.";
+				break;
+				
+			case -40:
+				recommendation = "If it's not snowing, it should be. Wear a coat or stay inside.";
+				break;
+				
+			case -30:
+				recommendation = "This is definitely layer weather.";
+				break;
+				
+			case -20:
+				recommendation = "It's getting chilly. You'll want a jacket just in case.";
+				break;
+				
+			case -10 : //&& feelsLike <= -10
+				recommendation = "It's quite nice out. Maybe some long sleeves, though.";
+				break;	
+
+			case 0:
+				recommendation = "It's a perfect temperature! Enjoy!";
+				break;
+				
+			case 10 : //&& feelsLike < 30
+				recommendation = "It's getting warm out there. Have a great day!";
+				break;
+				
+			case 20:
+				recommendataion = "It's hot. Bring your water and stay cool!";
+				break;
+				
+			case 30:
+				recommendataion = "JFC. Don't go out unless you're in a body of water.";
+				break;
+				
+			default:
+				recommendation = "I have no advice for you right now."
+		}
+		
+		document.getElementById("recommendation").innerHTML = recommendation;
 	});
 	
 }
@@ -34,7 +81,7 @@ function updateWeather(inQ){
 	
 	.info_text {
 		color: black;
-		font-size: 2em;
+		font-size: 24pt;
 	}
 	
 	.card {
@@ -106,6 +153,55 @@ function updateWeather(inQ){
 	
 	.span {
 	}
+
+	.span_secondary {
+		font-size: .5em;
+	}
+	
+	.switch-field {
+	display: flex;
+	margin-bottom: 36px;
+	overflow: hidden;
+	}
+
+	.switch-field input {
+		position: absolute !important;
+		clip: rect(0, 0, 0, 0);
+		height: 1px;
+		width: 1px;
+		border: 0;
+		overflow: hidden;
+	}
+
+	.switch-field label {
+		background-color: #e4e4e4;
+		color: rgba(0, 0, 0, 0.6);
+		font-size: 14px;
+		line-height: 1;
+		text-align: center;
+		padding: 8px 16px;
+		margin-right: -1px;
+		border: 1px solid rgba(0, 0, 0, 0.2);
+		box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+		transition: all 0.1s ease-in-out;
+	}
+
+	.switch-field label:hover {
+		cursor: pointer;
+	}
+
+	.switch-field input:checked + label {
+		background-color: #a5dc86;
+		box-shadow: none;
+	}
+
+	.switch-field label:first-of-type {
+		border-radius: 4px 0 0 4px;
+	}
+
+	.switch-field label:last-of-type {
+		border-radius: 0 4px 4px 0;
+	}
 	
 	
 </style>
@@ -114,11 +210,28 @@ function updateWeather(inQ){
 	<body onLoad="updateWeather('04038');">
 		<div align="center">
 			<div class="card">
+				
 				<div class="container">
+					<!--
+					<p class="info_text">My brain thinks in:</p>
+					<span class="switch-field">
+						<input type="radio" id="select_f" name="degrees" value="F" checked/>
+						<label for="select_f">&deg;F</label>
+						<input type="radio" id="select_c" name="degrees" value="C"/>
+						<label for="select_c">&deg;C</label>
+					</span>
+					-->
 					<img src="https://static.thenounproject.com/png/275465-200.png" width="20%" id="weather_icon" alt="weather icon">
 					<br>
-					<span id="temp">...</span>					
+					<span id="temp">...</span>
+					<br>
+					<span id="feels_like" class="span_secondary">Feels like...</span>					
 				</div>
+				
+			</div>
+			<br>
+			<div class="card-sm" id="recommendation">
+			
 			</div>
 			<p class="info_text" id="updated_time"></p>
 		</div>		
@@ -132,8 +245,9 @@ function updateWeather(inQ){
 		</div>
 		<br>
 		<div align="center">
-				<div class="container">
-					<input class="input" size="5" id="zipcode" type="number" value="04038">
+				<div class="container"><br>
+					<p class="info_text">Postal Code or City</p>
+					<input class="input" id="zipcode" value="04038">
 					<button class="button" onclick="updateWeather(document.getElementById('zipcode').value);">OK</button>
 				</div>
 		</div>
